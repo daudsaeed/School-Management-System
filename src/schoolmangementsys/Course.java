@@ -10,8 +10,7 @@ public class Course {
 	private String name;
 	private int creditHours;
 	private Schedule schedule;
-//	private Student [] students;
-	private ArrayList <Student> students = new ArrayList<Student>();
+	private ArrayList <Student> students = new ArrayList<Student>(); //teacher // Courses
 	private Teacher teacher;
 	
 	//Empty Constructor
@@ -39,7 +38,31 @@ public class Course {
 
 
 	
-	//Getter and Setter Methods.
+	//return the course info
+	public String getCousrseInfo() {
+		String courseInfo = "Course Info: \n";
+		courseInfo+= "Course Name: " + this.getName() + "\n";
+		courseInfo+= "Credit Hours: " + this.getCreditHours() + "\n";
+		if(this.schedule != null) {
+			courseInfo+= "Schedule: " + this.schedule.toString();
+		}
+		
+		if(this.teacher != null) {
+			courseInfo+= "Teacher Name: " + this.teacher.getName() + "\n";
+		}
+		
+		return courseInfo;
+		
+	}
+	
+	//Add student method
+	public void addStudent(Student student) {
+			students.add(student);	
+	}
+	
+	
+	
+	
 	
 	
 	
@@ -105,19 +128,6 @@ public class Course {
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
-	
-	
-	
-	
-	
-	
-	//Add student method
-	public void addStudent(Student student) {
-		
-		students.add(student);
-		
-	}
-	
 	
 	
 	

@@ -56,6 +56,8 @@ public class Student {
 		return stdInfo;
 	}
 	
+	
+	
 	//Getter and setters.
 	public String getName() {
 		return name;
@@ -83,8 +85,8 @@ public class Student {
 	}
 	
 	
-	//Find all courses register by student 
-	//Find course taught by certain teacaher.
+	//1. Remove the course.
+	//2. 
 	
 	
 }

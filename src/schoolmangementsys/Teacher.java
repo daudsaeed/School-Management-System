@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 
 /**
- * Teach can teach a single course and manages a default schedule.
- * Teacher Name: Bucky Roberts
- * Course  Name: Visual Basic.
- * Office  Hour: Monday 10 2h , Friday 20 1h 
+ * Teacher Class
  */
 public class Teacher {
 	//For encapsulation we made fields private
@@ -36,6 +33,21 @@ public class Teacher {
 		
 	}
 	
+	
+	
+	//Get Teacher Info
+	public String getTeacherInfo() {
+		String teacherInfo = "Teacher Info: \n";
+		teacherInfo+= "Teacher Name: " + this.getName() + "\n";
+		teacherInfo+= "Teach: " + course.getName() + "\n";
+		teacherInfo+= "Office hours: " + officeHours.toString() + "\n";
+		
+		return teacherInfo;
+	}
+	
+	
+	
+	
 	//Getter and Setter.
 	public String getName() {
 		return name;
@@ -55,6 +67,9 @@ public class Teacher {
 	public void setOfficeHours(Schedule officeHours) {
 		this.officeHours = officeHours;
 	}
+	
+	
+	
 	
 	
 	

@@ -7,7 +7,8 @@ public class School {
 	
 	
 	//Name of the school
-	private static String name = "Haziq and fatima: Girls International school";
+	private static String name = "Haziq and Fatima: Girls International school";
+	private static String tagline = "Charity School";
 	
 	//List of all the students and their count
 	private static ArrayList<Student> students = new ArrayList<Student>();
@@ -54,3 +55,21 @@ public class School {
 	}
 	
 }
+
+
+//File handling rati hn
+// Java Swing rati hn
+
+
+//Create a student metod.
+//Manage Students
+//Print student info (course ka lahaz sa)
+//Staff management ( delete teacher , add teacher , assigning teacher to another course)
+
+// Fee wala bana hn 
+// Teacher salary
+
+
+
+
+
