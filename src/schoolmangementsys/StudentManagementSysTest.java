@@ -1,8 +1,10 @@
 package schoolmangementsys;
 
+import java.text.ParseException;
+
 public class StudentManagementSysTest
 {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		
 		
 		//Courses. 
@@ -14,7 +16,7 @@ public class StudentManagementSysTest
 		
 		Course Pyhsics = new Course("Physics", 3);
 		//Creating instance of the schedule
-		schedule = new Schedule(new String[] {"Tuesday" , "Wednesday"}, new int [] {10 , 9}, new int[] {2,2});
+		schedule = new Schedule(new String[] {"Tuesday" , "Monday"}, new int [] {10 , 9}, new int[] {2,2});
 		Pyhsics.setSchedule(schedule);
 		
 		Course Urdu = new Course("Urdu", 2);
@@ -24,7 +26,7 @@ public class StudentManagementSysTest
 		
 		
 		//Teachers.
-		schedule = new Schedule(new String[] {"Monday" , "Friday"}, new int [] {10 , 20}, new int[] {2, 1});
+		schedule = new Schedule(new String[] {"Monday" , "saturday"}, new int [] {10 , 20}, new int[] {2, 1});
 		Teacher t1 = new Teacher("Zafar Iqbal", Pyhsics, schedule);
 		Pyhsics.setTeacher(t1);
 		schedule = new Schedule(new String[] {"Tuesday" , "Friday"}, new int [] {12 , 14}, new int[] {1, 1});
@@ -64,7 +66,13 @@ public class StudentManagementSysTest
 		System.out.println(Math.getCousrseInfo());
 		System.out.println(Urdu.getCousrseInfo());
 		
-		
+		Attendence a = new Attendence();
+		a.markAttendence(Pyhsics, s1 , false);
+		t1.setAttendence(a);
+		Course c = a.getCourse();
+		System.out.println("Name: " + c.getName() + "\nPresent: " + a.isPresent());
+		Student sa1 = a.getStudent();
+		System.out.println("Student Name: " + sa1.getName());
 		
 	}
 	

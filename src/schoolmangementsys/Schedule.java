@@ -66,4 +66,26 @@ public class Schedule {
 		Schedule schedule = new Schedule();
 		System.out.println(schedule.toString());
 	}
+	
+	
+	
+	//Getter and setters; ///Used in Attedence class.
+	public String[] getDays() {
+		return days;
+	}
+	public void setDays(String[] days) {
+		this.days = days;
+	}
+	public int[] getTime() {
+		return time;
+	}
+	public void setTime(int[] time) {
+		this.time = time;
+	}
+	public int[] getDuration() {
+		return duration;
+	}
+	public void setDuration(int[] duration) {
+		this.duration = duration;
+	}
 }

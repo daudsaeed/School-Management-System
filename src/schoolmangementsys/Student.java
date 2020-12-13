@@ -8,8 +8,7 @@ public class Student {
 	private int rollNumber;
 	private int [] grades;
 	private int coursesEnrolled = 0;
-	
-	
+
 	//Parameterized Constructor
 	Student(String name, int rollNumber){
 		this.name = name;
@@ -84,6 +83,24 @@ public class Student {
 		this.grades = grades;
 	}
 	
+	public int getCoursesEnrolled() {
+		return coursesEnrolled;
+	}
+
+	public void setCoursesEnrolled(int coursesEnrolled) {
+		this.coursesEnrolled = coursesEnrolled;
+	}
+	private int semster;
+	
+	
+	public int getSemster() {
+		return semster;
+	}
+
+	public void setSemster(int semster) {
+		this.semster = semster;
+	}
+
 	
 	//1. Remove the course.
 	//2. 

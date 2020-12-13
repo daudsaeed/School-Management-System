@@ -12,7 +12,7 @@ public class Teacher {
 	private String name;
 	private Course course;
 	private Schedule officeHours;
-	
+	private Attendence attendence;
 	
 	//Parameterized Constructor;
 	Teacher(String name, Course course, Schedule officeHours){
@@ -71,6 +71,15 @@ public class Teacher {
 	
 	
 	
+	//getter and setter for attendence
+	public void setAttendence(Attendence attendence)
+	{
+		this.attendence = attendence;
+	}
+	
+	public Attendence getAttendence() {
+		return attendence;
+	}
 	
 	
  }
