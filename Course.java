@@ -1,6 +1,6 @@
 package schoolmangementsys;
 import java.util.ArrayList;
-
+import java.util.Scanner;
 
 
 public class Course extends Attendance{
@@ -15,25 +15,32 @@ public class Course extends Attendance{
 	//complete record of subject's attendance
 	private ArrayList<Attendance> attendance = new ArrayList<Attendance>();
 	private int index = 0;
-	//Empty Constructor
-//	Course(){}
+	private Scanner input = new Scanner(System.in);
+	
+	//no argument Constructor
+	Course(){
+		name = null;
+		creditHours = 0;
+		schedule = null;
+		teacher = null;
+	}
 	
 	
 	//Parameterized Constructor
 	Course(String name, int creditHours) {
-		//This keyword here is used to distinguis between 
+		//This keyword here is used to distinguish between 
 		//instance variable and the local variable :)
 		this.name = name;
 		this.creditHours = creditHours;
-		//It is not neccasry that course has a schedule right now 
-		// or maybe the schedule is not created yet for the course (logicial speaking)
+		//It is not necessary that course has a schedule right now 
+		// or maybe the schedule is not created yet for the course (logically speaking)
 	}
 	
 	
 	
 	//Parameterized constructor with schedule
 	Course(String name, int creditHours, Schedule schedule){
-		//Using to this keyword to invoke constrctor
+		//Using to this keyword to invoke constructor
 		this(name, creditHours);
 		this.schedule = schedule;
 	}
@@ -41,7 +48,7 @@ public class Course extends Attendance{
 
 	
 	//return the course info
-	public String getCousrseInfo() {
+	public String getInfo() {
 		String courseInfo = "Course Info: \n";
 		courseInfo+= "Course Name: " + this.getName() + "\n";
 		courseInfo+= "Credit Hours: " + this.getCreditHours() + "\n";
@@ -82,8 +89,37 @@ public class Course extends Attendance{
 			index++;
 		}
 	}
+
+	//printing attendance for course/teacher
+	public void printAttendance() {
+		System.out.println("Course : "+name+"\nTeacher : "+teacher.getName());
+		for(int i=0; i<attendance.size(); i++) {
+			System.out.println("\nDate : "+ attendance.get(i).getDate());
+			System.out.println(attendance.get(i));
+		}
+	}
 	
-	
+	//create course method
+	public Object create() {
+		System.out.print("Enter course name: ");
+		this.name = input.nextLine();
+		System.out.print("Enter credit hours: ");
+		this.creditHours = input.nextInt();
+		//discard \n
+		input.nextLine();
+		System.out.print("Is schedule created? (Y or N)");
+		char created = input.nextLine().charAt(0);
+		if(created=='N'||created=='n') {
+			Schedule newSchedule = new Schedule();
+			setSchedule((Schedule)newSchedule.create());
+		}
+		//we will search for teacher in school
+		Teacher tCourse = School.searchForTeacher("");
+		if(tCourse==null) {
+			System.out.println("teacher not found");
+		}
+		return this;
+	}
 	
 	//Getter and Setter for Name.
 	public String getName() {
@@ -147,14 +183,6 @@ public class Course extends Attendance{
 		this.teacher = teacher;
 	}
 	
-	//printing attendance for course/teacher
-	public void printAttendance() {
-		System.out.println("Course : "+name+"\nTeacher : "+teacher.getName());
-		for(int i=0; i<attendance.size(); i++) {
-			System.out.println("\nDate : "+ attendance.get(i).getDate());
-			System.out.println(attendance.get(i));
-		}
-	}
 	
 	//getter for attendance
 	public ArrayList<Attendance> getAttendance() {

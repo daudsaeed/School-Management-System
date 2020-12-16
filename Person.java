@@ -1,19 +1,61 @@
 package schoolmangementsys;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Person {
+public class Person{
 	//common fields of both student and teacher
-	private String name;
-	private String idCardNo;
-	private String dob;//date of birth
-	private String gender;
-	private String email;
-	private String phoneNo;
-	private String address;
-	private String department;//like we are in CS dept
-	private String city;
-	private ArrayList<String> courses = new ArrayList<>();//courses that student will study or teacher will teach
+	protected String name;
+	protected String idCardNo;
+	protected String dob;//date of birth
+	protected String gender;
+	protected String email;
+	protected String phoneNo;
+	protected String address;
+	protected String department;//like we are in CS dept
+	protected String city;
+	protected ArrayList<String> courseArray = new ArrayList<>();//courses that student will study or teacher will teach
+	
+	private Scanner input = new Scanner(System.in);
+	
+	//create method ==> to add data members
+	public Object create() {
+		System.out.print("Enter name: ");
+		this.name = input.nextLine();
+		System.out.print("Enter ID Card number: ");
+		this.idCardNo = input.nextLine();
+		System.out.print("Enter date of birth: ");
+		this.dob = input.nextLine();
+		System.out.print("Enter gender: ");
+		this.gender = input.nextLine();
+		System.out.print("Enter email ID: ");
+		this.email = input.nextLine();
+		System.out.print("Enter phone no.: ");
+		this.phoneNo = input.nextLine();
+		System.out.print("Enter address: ");
+		this.address = input.nextLine();
+		System.out.print("Enter department: ");
+		this.department = input.nextLine();
+		System.out.print("Enter city name: ");
+		this.city =  input.nextLine();
+		return this;
+	}
+	
+	//get info for printing
+	@Override
+	public String toString() {
+		StringBuilder info = new StringBuilder();
+		info.append("Name: "+name);
+		info.append("\nID Card No.: "+idCardNo);
+		info.append("\nDate of Birth: "+dob);
+		info.append("\nGender: "+gender);
+		info.append("\nEmail ID: "+email);
+		info.append("\nPhone no.: "+phoneNo);
+		info.append("\nAddress: "+address);
+		info.append("\nDepartment: "+department);
+		info.append("\nCity: "+city);
+		return info.toString();
+	}
 	
 	//setters and getters
 	
@@ -90,11 +132,11 @@ public class Person {
 	}
 	
 	//courses
-	public ArrayList<String> getCourses() {
-		return courses;
+	public ArrayList<String> getcourseArray() {
+		return courseArray;
 	}
-	public void setCourses(ArrayList<String> courses) {
-		this.courses = courses;
+	public void setcourseArray(ArrayList<String> courses) {
+		this.courseArray = courses;
 	}
 	
 }

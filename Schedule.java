@@ -1,17 +1,20 @@
 package schoolmangementsys;
 
+import java.util.Scanner;
+
 //Used for office hours 
 //And by courses class.
 
 
 //Schedule Class.
-public class Schedule {
+public class Schedule extends Person{
 	//For encapsulation we made fields private
 	//Encapsulation = abstraction + Data Hiding.
 	
-	private String []  days;
-	private int [] time;
-	private int [] duration;
+	private String []  days = new String[2];
+	private int [] time = new int[2];
+	private int [] duration =  new int[2];
+	private Scanner input = new Scanner(System.in);
 	
 	//No-Args Constructor
 	 Schedule() {
@@ -32,6 +35,8 @@ public class Schedule {
 		this.duration[0] = 2;
 		this.duration[1] = 1;
 	}
+	 
+	 
 	//Parameterized Constructor
 	 Schedule(String [] days, int [] time, int [] duration) {
 		this.days= days;
@@ -46,9 +51,9 @@ public class Schedule {
 		
 		for(int i = 0; i < days.length; i++) {
 			
-			//Error that we faced forgetting string is immutabe and can't be changed.
-			//Now explicitely assign it to the reference variable
-			//In String constant pool now scedule would refer on concan String.
+			//Error that we faced forgetting string is immutable and can't be changed.
+			//Now explicitly assign it to the reference variable
+			//In String constant pool now schedule would refer on concat String.
 			schedule = schedule.concat(this.days[i] + " at " + this.time[i] + " for " + this.duration[i] + 
 					" hours\n");
 		}
@@ -56,14 +61,20 @@ public class Schedule {
 		return schedule;
 	}
 	
-	//End Note: Did't required the setter because paramterized constructor is being used to set values here.
-	
-	
-	//Main Method.Classes can be compiled without main but if you 
-	//want to execute the class you need a main method.
-	public static void main(String [] args) {
-		
-		Schedule schedule = new Schedule();
-		System.out.println(schedule.toString());
+	@Override
+	public Object create() {
+		for(int i=0; i<days.length; i++) {
+			System.out.print("Enter name of day: ");
+			days[i] = input.nextLine();
+			System.out.print("Enter time (an integer in 24 hour format): ");
+			time[i] = input.nextInt();
+			//discard \n
+			input.nextLine();
+			System.out.print("Enter duration (in hours): ");
+			duration[i] = input.nextInt();
+			//discard \n
+			input.nextLine();
+		}
+		return this;
 	}
 }

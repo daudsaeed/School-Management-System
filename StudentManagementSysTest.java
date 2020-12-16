@@ -53,20 +53,20 @@ public class StudentManagementSysTest
 		
 		//Print Student information.
 		
-		System.out.println(s1.getStudentInfo());
-		System.out.println(s2.getStudentInfo());
-		System.out.println(s3.getStudentInfo());
+		System.out.println(s1.getInfo());
+		System.out.println(s2.getInfo());
+		System.out.println(s3.getInfo());
 		
 		
 		//Print the Teacher info
-		System.out.println(t1.getTeacherInfo());
-		System.out.println(t2.getTeacherInfo());
+		System.out.println(t1.getInfo());
+		System.out.println(t2.getInfo());
 		
 		
 		//print course Info
-		System.out.println(Pyhsics.getCousrseInfo());
-		System.out.println(Math.getCousrseInfo());
-		System.out.println(Urdu.getCousrseInfo());
+		System.out.println(Pyhsics.getInfo());
+		System.out.println(Math.getInfo());
+		System.out.println(Urdu.getInfo());
 		
 		//Testing attendance for 3 days
 		//here is the error ==> teacher has no students ==> removed :)

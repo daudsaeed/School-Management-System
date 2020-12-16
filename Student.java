@@ -1,31 +1,34 @@
 package schoolmangementsys;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Student {
+public class Student extends Person implements Management{
 	//>>For encapsulation we made (fields) private
 	//>>Encapsulation = abstraction + Data Hiding.
-	private String name;
 	private Course []  courses = new Course[5];
-	private int rollNumber;
+	private int rollNumber = 0;
 	private int [] grades;
 	private int coursesEnrolled = 0;
-	
+
 	//Parameterized Constructor
 	Student(String name, int rollNumber){
 		this.name = name;
 		this.rollNumber = rollNumber;
 	}
-	
+
 	//Parameterized Constructor with courses parameter;
 	Student(String name , int rollNumber, Course[] courses){
 		this(name, rollNumber);
 		this.coursesEnrolled = courses.length;
 		this.courses=courses;
 	}
-	
-	
-	
+
+	public Student() {
+
+	}
+
+
 	/**
 	 * Register students to a new course.
 	 */
@@ -43,25 +46,26 @@ public class Student {
 			}
 		}
 	}
-	
+
+	@Override
 	//Get Student Info
-	public String getStudentInfo() {
+	public String getInfo() {
 		String stdInfo = "Student Info \n";
-		stdInfo += "Name: " + this.getName() + "\n";
-		stdInfo += "Roll Number: " + this.getRollNumber() + "\n";
-		
+		stdInfo += super.toString();
+		stdInfo += "\nRoll Number: " + this.getRollNumber() + "\n";
+
 		//For courses array.
 		for (int i = 0; i < this.coursesEnrolled; i++) {
 			stdInfo+= "Course"+ (i+ 1) + ". "+ courses[i].getName() + "\n";
 		}
 		return stdInfo;
 	}
-	
+
 	//if student wants to drop a course
 	public void removeCourse(Course course) {
-		
+
 	}
-	
+
 	//student will view attendance according to subject
 	public void printAttendance(Course course) {
 		//checking if course is registered for student or not
@@ -93,7 +97,20 @@ public class Student {
 		}
 		System.out.println();
 	}
-	
+
+
+
+	//Added at 15/12/2020 12:12 am after the attedence and person commit
+	//Overriding concept abstract to non-abstract (Overriding)
+	@Override
+	public Object create(){
+		super.create();
+		int rollNumber = (School.getStudentCount()) + 1;
+		setRollNumber(rollNumber);
+		return this;
+	}
+
+
 	//Getter and setters.
 	public String getName() {
 		return name;
@@ -127,11 +144,11 @@ public class Student {
 	public void setCoursesEnrolled(int coursesEnrolled) {
 		this.coursesEnrolled = coursesEnrolled;
 	}
-	
-	
-	
+
+
+
 	//1. Remove the course.
-	//2. 
-	
-	
+	//2.
+
+
 }
