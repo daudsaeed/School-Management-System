@@ -57,7 +57,7 @@ public class Attendance {
 	
 	
 	//date for current attendance record
-	Date getDate() {
+	public Date getDate() {
 		return date;
 	}
 	
@@ -71,7 +71,11 @@ public class Attendance {
 		return str;
 	}
 	
-	
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+
 	public ArrayList<Boolean> getAttendanceList() {
 		return attendanceList;
 	}

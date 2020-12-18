@@ -11,7 +11,8 @@ public class Course extends Attendance{
 	private int creditHours;
 	private Schedule schedule;
 	private ArrayList <Student> students = new ArrayList<Student>(); //teacher // Courses
-	private Teacher teacher;
+	//Changing Teacher to ArrayList.
+	private ArrayList <Teacher> teachers = new ArrayList<Teacher>();
 	//complete record of subject's attendance
 	private ArrayList<Attendance> attendance = new ArrayList<Attendance>();
 	private int index = 0;
@@ -19,10 +20,6 @@ public class Course extends Attendance{
 	
 	//no argument Constructor
 	Course(){
-		name = null;
-		creditHours = 0;
-		schedule = null;
-		teacher = null;
 	}
 	
 	
@@ -55,9 +52,12 @@ public class Course extends Attendance{
 		if(this.schedule != null) {
 			courseInfo+= "Schedule: " + this.schedule.toString();
 		}
-		
-		if(this.teacher != null) {
-			courseInfo+= "Teacher Name: " + this.teacher.getName() + "\n";
+
+		//Added the for each loop
+		for (Teacher teacher: teachers){
+			if(teacher != null) {
+				courseInfo+= "Teacher Name: " + teacher.getName() + "\n";
+			}
 		}
 		
 		return courseInfo;
@@ -69,33 +69,40 @@ public class Course extends Attendance{
 			students.add(student);	
 	}
 	
+	//Add teacher method
+	public void addTeacher(Teacher teacher) {
+		if(teacher==null) {
+			System.out.println("teacher is null");
+		}
+		else {
+			teachers.add(teacher);
+		}
+	}
+	
 	//adding attendance
-	void addAttendance() {
-		//adding new attendance
-		attendance.add(index,new Attendance(this.teacher,this));
+	private void addAttendance(Teacher teacher) {
+		if(teacher==null) {
+			System.out.println("null hai yeh");
+		}
+		attendance.add(index , new Attendance(teacher,this));
 	}
 	
 	//teacher will mark attendance through course
 	//we'll check if a student tries to access it then an error would be generated
 	//o is the person who called this method
-	public void markAttendance(Object o) {
-		if(o instanceof Student) {
-			System.out.println("Student can not access this method");
-			attendance.remove(index);
-			return;
-		}
-		if(o instanceof Teacher) {
-			attendance.get(index).markAttendance();
-			index++;
-		}
+	public void markAttendance(Teacher t) {
+		addAttendance(t);
+		attendance.get(index).markAttendance();
+		index++;
 	}
 
 	//printing attendance for course/teacher
 	public void printAttendance() {
-		System.out.println("Course : "+name+"\nTeacher : "+teacher.getName());
-		for(int i=0; i<attendance.size(); i++) {
-			System.out.println("\nDate : "+ attendance.get(i).getDate());
-			System.out.println(attendance.get(i));
+		System.out.println("Course : "+name);
+		for (Attendance value : attendance) {
+			System.out.println("\nTeacher : "+value.getTeacher().getName());
+			System.out.println("\nDate : " + value.getDate());
+			System.out.println(value);
 		}
 	}
 	
@@ -161,29 +168,21 @@ public class Course extends Attendance{
 	public ArrayList<Student> getStudents() {
 		return students;
 	}
-
-
-
 	public void setStudents(ArrayList <Student> students) {
 		for(Student student:students) {
 	         this.students.add(student);
 	      }
 	}
 
-	
 	//Getter and Setter for Teacher.
-
-	public Teacher getTeacher() {
-		return teacher;
+	public ArrayList<Teacher> getTeachers() {
+		return teachers;
 	}
 
-
-
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
+	public void setTeachers(ArrayList<Teacher> teachers) {
+		this.teachers = teachers;
 	}
-	
-	
+
 	//getter for attendance
 	public ArrayList<Attendance> getAttendance() {
 		return attendance;

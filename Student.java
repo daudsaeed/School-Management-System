@@ -10,7 +10,13 @@ public class Student extends Person implements Management{
 	private int rollNumber = 0;
 	private int [] grades;
 	private int coursesEnrolled = 0;
-
+	private Teacher[] teachers = new Teacher[5];
+	private int teachersAssigned = 0;
+	private int paidFee;
+	private static int semesterFee;
+	private static int totalFee; //total fee student has paid up till now
+	private Scanner input = new Scanner(System.in);
+	
 	//Parameterized Constructor
 	Student(String name, int rollNumber){
 		this.name = name;
@@ -24,6 +30,14 @@ public class Student extends Person implements Management{
 		this.courses=courses;
 	}
 
+	//adding another constructor with teachers
+	Student(String name , int rollNumber, Course[] courses, Teacher[] teachers){
+		this(name, rollNumber);
+		this.coursesEnrolled = courses.length;
+		this.courses=courses;
+		this.teachers = teachers;
+	}
+	
 	public Student() {
 
 	}
@@ -47,6 +61,20 @@ public class Student extends Person implements Management{
 		}
 	}
 
+	//adding teacher
+	public void addTeacher(Teacher teacher) {
+		if(teacher == null || teachers.length ==0) {
+			System.out.println("Error: Course array is NULL");
+		}else {
+			if(teachersAssigned < 5) {
+				this.teachers[this.teachersAssigned] = teacher;
+				this.teachersAssigned++;
+			}else {
+				System.out.println("Error: A student only be assigned 5 teachers");
+			}
+		}
+	}
+	
 	@Override
 	//Get Student Info
 	public String getInfo() {
@@ -58,6 +86,10 @@ public class Student extends Person implements Management{
 		for (int i = 0; i < this.coursesEnrolled; i++) {
 			stdInfo+= "Course"+ (i+ 1) + ". "+ courses[i].getName() + "\n";
 		}
+		//adding fee info at 6:51 pm 17/12/2020
+		stdInfo+= "Total fee: " + totalFee;
+		stdInfo+= "Paid fee: " + paidFee;
+		stdInfo+= "Due fee: " + dueFee();
 		return stdInfo;
 	}
 
@@ -70,9 +102,10 @@ public class Student extends Person implements Management{
 	public void printAttendance(Course course) {
 		//checking if course is registered for student or not
 		boolean present = false;
-		for(Course c : courses) {
-			if(c.getName().equals(course.getName())) {
+		for(int i=0; i<coursesEnrolled; i++) {
+			if(courses[i].getName().equals(course.getName())) {
 				present = true;
+				break;
 			}
 		}
 		//printing if present
@@ -81,7 +114,17 @@ public class Student extends Person implements Management{
 			return;
 		}
 		System.out.println("Student : " + name);
-		System.out.println("Course : "+course.getName()+" \nTeacher : "+course.getTeacher().getName());
+		System.out.println("Course : "+course.getName());
+		//printing teacher's name
+		//iterating teachers array and finding student's teacher's name
+		ArrayList<Teacher> teachers = course.getTeachers();
+		for(int i=0; i<teachersAssigned; i++) {
+			for(int j=0; j<teachers.size(); j++) {
+				if (this.teachers[i].getName().equalsIgnoreCase(teachers.get(j).getName())) {
+					System.out.println("Teacher: "+ this.teachers[i].getName());
+				}
+			}
+		}
 		//getting attendance list
 		ArrayList<Attendance> attendance = new ArrayList<Attendance>();
 		for(Attendance a : course.getAttendance()) {
@@ -107,6 +150,14 @@ public class Student extends Person implements Management{
 		super.create();
 		int rollNumber = (School.getStudentCount()) + 1;
 		setRollNumber(rollNumber);
+		System.out.print("Enter total fee for student " + this.name +": ");
+		totalFee = input.nextInt();
+		//discard \n
+		input.nextLine();
+		System.out.print("Set semster fee for student "+this.name +": ");
+		semesterFee = input.nextInt();
+		//discard \n
+		input.nextLine();
 		return this;
 	}
 
@@ -145,10 +196,55 @@ public class Student extends Person implements Management{
 		this.coursesEnrolled = coursesEnrolled;
 	}
 
+	public Teacher[] getTeachers() {
+		return teachers;
+	}
+
+	public void setTeachers(Teacher[] teachers) {
+		this.teachers = teachers;
+	}
 
 
-	//1. Remove the course.
-	//2.
+	public int getTeachersAssigned() {
+		return teachersAssigned;
+	}
 
+	public void setTeachersAssigned(int teachersAssigned) {
+		this.teachersAssigned = teachersAssigned;
+	}
+	
+	//managing fee
+	public int getPaidFee() {
+		return paidFee;
+	}
 
+	public void setPaidFee(int fee) {
+		this.paidFee = fee;
+	}
+	
+	public void payFee(int fee) {
+		paidFee += fee;
+		School.addNetWorth(fee);
+		System.out.println("Fee paid");
+	}
+
+	public int getTotalFee() {
+		return totalFee;
+	}
+
+	public void setTotalFee(int fee) {
+		totalFee = fee;
+	}
+	//due fee
+	public int dueFee() {
+		return totalFee - paidFee;
+	}
+
+	public int getSemesterFee() {
+		return semesterFee;
+	}
+
+	public void setSemesterFee(int fee) {
+		semesterFee = fee;
+	}
 }

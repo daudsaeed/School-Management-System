@@ -1,27 +1,49 @@
 package schoolmangementsys;
 import java.util.ArrayList;
 
-public class School {
+public class School implements Management{
 	//For encapsulation we made fields private
 	//Encapsulation = abstraction + Data Hiding.
 	
 	
 	//Name of the school
 	private static String name = "Haziq and Fatima: Girls International school";
-	private static String tagline = "Charity School";
+	private static String tagline = "Every Student Matters , Every Moment Counts"; //a brilliant tag line by our group leader :)
 	
 	//List of all the students and their count
 	private static ArrayList<Student> students = new ArrayList<Student>();
-	private static int studentCount = 0;
+	private static int studentCount;
 	
 
 	//List of courses in school and their count
 	private static ArrayList<Course> courses = new ArrayList<Course>();
-	private static int courseCount = 0;
+	private static int courseCount;
 	
 	//list of all teachers
 	private static ArrayList<Teacher> teachers = new ArrayList<Teacher>();
-	private static int teacherCount = 0;
+	private static int teacherCount;
+	
+	//net worth and total salary paid to teachers
+	private static int netWorth = 1000000; //initial net worth of school
+	private static int totalSalarayPaid;
+	private static int totalFeeReceived;
+
+	//getting info
+	@Override
+	public String getInfo() {
+		String info = "";
+		info+= name+"\n"+tagline+"\n";
+		info+="Courses: \n";
+		int i = 1;
+		for(Course course : courses) {
+			info+=i+". "+course.getName()+"\n";
+			i++;
+		}
+		info+= "Number of teachers: "+teacherCount+"\n";
+		info+= "Number of students: "+studentCount+"\n";
+		info+="Net Worth: "+netWorth+"\n";
+		return info;
+	}
 	
 	//Admit the student (Student Pannel).
 	
@@ -62,6 +84,27 @@ public class School {
 		}
 	}
 	
+	//assign teacher to student 
+		public static void assignTeacher(Student student, Teacher teacher) {
+			
+			if(student != null && teacher != null) {
+				
+				Teacher [] teachers = student.getTeachers();
+				
+				if(teacher != null && student.getTeachersAssigned() < 5) { 
+		
+					student.addTeacher(teacher);
+					teacher.addStudent(student);
+					
+				}
+					
+					
+			}else {
+				System.out.println("Error: Student or teacher can't be NULL");
+			}
+		}
+		
+	
 	//searching a course in the course array list
 	public static Course searchForCourse(String course) {
 		//course name can not be null or empty string
@@ -77,17 +120,31 @@ public class School {
 	}
 	
 	//searching a teacher in the course array list
-		public static Teacher searchForTeacher(String teacherName) {
+	public static Teacher searchForTeacher(String teacherName) {
+		//teacher name can not be null or empty string
+		Teacher teacher = null;
+		if(teacherName!=null && !teacherName.equals("")) {
+			for(Teacher t : teachers) {
+				if(t.getName().equalsIgnoreCase(teacherName)) {
+					teacher = t;
+				}
+			}
+		}
+		return teacher;
+	}
+
+	//searching a student in the course array list
+		public static Student searchForStudent(String studentName) {
 			//teacher name can not be null or empty string
-			Teacher teacher = null;
-			if(teacherName!=null && !teacherName.equals("")) {
-				for(Teacher t : teachers) {
-					if(t.getName().equalsIgnoreCase(teacherName)) {
-						teacher = t;
+			Student student = null;
+			if(studentName!=null && !studentName.equals("")) {
+				for(Student s : students) {
+					if(s.getName().equalsIgnoreCase(studentName)) {
+						student = s;
 					}
 				}
 			}
-			return teacher;
+			return student;
 		}
 	
 	public static int getStudentCount() {
@@ -114,6 +171,21 @@ public class School {
     	for(Course course : courses) {
     		System.out.println(course.getInfo());
     	}
+    }
+    
+    //getter method
+    public static int getNetWorth() {
+    	return netWorth;
+    }
+    
+    //updating net worth ==> increasing if fee is received & decreasing if salary is paid
+    public static void addNetWorth(int amount) {
+    	totalFeeReceived += amount;
+    	netWorth += amount;
+    }
+    public static void subtractNetWorth(int amount) {
+    	totalSalarayPaid += amount;
+    	netWorth -= amount;
     }
 }
 
