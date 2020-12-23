@@ -8,7 +8,7 @@ public class School implements Management{
 	
 	//Name of the school
 	private static String name = "Haziq and Fatima: Girls International school";
-	private static String tagline = "Every Student Matters , Every Moment Counts"; //a brilliant tag line by our group leader :)
+	private static String tagline = "Every Student Matters , Every Moment Counts"; //a brilliant tag line by our group leader dawood:)
 	
 	//List of all the students and their count
 	private static ArrayList<Student> students = new ArrayList<Student>();
@@ -45,7 +45,7 @@ public class School implements Management{
 		return info;
 	}
 	
-	//Admit the student (Student Pannel).
+	//Admit the student (Student Panel).
 	
 	public static void admitStudent(Student student) {
 		students.add(student);
@@ -58,10 +58,28 @@ public class School implements Management{
 		teacherCount++;
 	}
 	
-	//Add courses ( Admin Pannel).
+	//Add courses ( Admin Panel).
 	public static void addCourse(Course course) {
 		courses.add(course);
 		courseCount++;
+	}
+	
+	//remove student
+	public static void removeStudent(Student student) {
+		students.remove(student);
+		studentCount--;
+	}
+	
+	//remove teacher
+	public static void removeTeacher(Teacher teacher) {
+		teachers.remove(teacher);
+		teacherCount--;
+	}
+	
+	//remove course
+	public static void removeCourse(Course course) {
+		courses.remove(course);
+		courseCount--;
 	}
 	
 	//Enroll course method 
@@ -187,5 +205,14 @@ public class School implements Management{
     	totalSalarayPaid += amount;
     	netWorth -= amount;
     }
+    
+    //only getters because we won't set these :)
+    public static String getName() {
+		return name;
+	}
+
+	public static String getTagline() {
+		return tagline;
+	}
 }
 

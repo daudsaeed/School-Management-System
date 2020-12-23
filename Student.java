@@ -87,9 +87,9 @@ public class Student extends Person implements Management{
 			stdInfo+= "Course"+ (i+ 1) + ". "+ courses[i].getName() + "\n";
 		}
 		//adding fee info at 6:51 pm 17/12/2020
-		stdInfo+= "Total fee: " + totalFee;
-		stdInfo+= "Paid fee: " + paidFee;
-		stdInfo+= "Due fee: " + dueFee();
+		stdInfo+= "Total fee: " + totalFee+"\n";
+		stdInfo+= "Paid fee: " + paidFee+"\n";
+		stdInfo+= "Due fee: " + dueFee()+"\n";
 		return stdInfo;
 	}
 

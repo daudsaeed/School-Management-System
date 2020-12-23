@@ -2,78 +2,191 @@ package schoolmangementsys;
 import java.util.Scanner;
 
 public class Main {
-
-    //Display Options
-    public static int displayOption(){
-        int option = 0;
-        System.out.println("\nEnter your command");
-        System.out.println("1. To add a student");
-        System.out.println("2. To add a course");
-        System.out.println("3. To add a teacher");
-        System.out.println("4. To print list of students");
-        System.out.println("5. To print list of courses");
-        System.out.println("6. To print list of teachers");
-        System.out.println("7. To enroll a student in course");
-        System.out.println("8. To mark attendance for a course");
-        System.out.println("9. To check attendance for a student");
-        System.out.println("10. Assign teacher to a student");
-        System.out.println("11. To check total fee and pay fee of a student");
-        System.out.println("12. Pay salary to a teacher");
-        System.out.println("13. Print school's information");
-        System.out.println("To exit: enter 0\n");
-        Scanner scanner = new Scanner(System.in);
-        option = scanner.nextInt();
-        return option;
-    }
-    
+	
+	//modifying on 22/12/2020 at 6:40 PM
+	//we will display two menus ==> outer to select category - admin, student or teacher
+	//second menu will be according to the category selected in the first menu
+	
+	//selecting category / first menu
+	public static int displayCategories(Scanner cin){
+		int option = 0;
+		System.out.println("\nChoose category (0 to exit): ");
+		System.out.println("1. Administration");
+		System.out.println("2. Teacher");
+		System.out.println("3. Student");
+		option = cin.nextInt();
+		//discard \n
+		cin.nextLine();
+		//checking validity of option
+		if(option>=0 && option<4) {
+			return option;
+		}
+		else {
+			System.out.println("INVALID CHOICE!!!");
+			return option;
+		}
+	}
+	
+	//second menu for admin
+	public static void adminOptions(Scanner cin) {
+		int option = 0;
+		do {
+			System.out.println("\nEnter your command");
+			System.out.println("0. Go back to categories");
+			System.out.println("1. Admit a student");
+			System.out.println("2. Add a teacher");
+			System.out.println("3. Add a course");
+			System.out.println("4. Expel/remove a student");
+			System.out.println("5. Remove a teacher");
+			System.out.println("6. Remove a course");
+			System.out.println("7. Enroll a course for a student");
+			System.out.println("8. Assign teacher to a student");
+			System.out.println("9. Print information about school");
+			System.out.println("10. Print list of all courses taught at school");
+			System.out.println("11. Print list of all students studying at school");
+			System.out.println("12. Print list of all teachers teaching at school");
+			option = cin.nextInt();
+			//discard \n
+			cin.nextLine();
+			//switch statement
+			switch (option) {
+				case 0: //go back to display options
+					return;
+				case 1:
+					addStudent();
+					break;
+				case 2:
+					addTeacher();
+					break;
+				case 3:
+					addCourse();
+					break;
+				case 4:
+					deleteStudent(cin);
+					break;
+				case 5:
+					deleteTeacher(cin);
+					break;
+				case 6:
+					deleteCourse(cin);
+					break;
+				case 7:
+					enrollCourse(cin);
+					break;
+				case 8:
+					assignTeacher(cin);
+					break;
+				case 9:
+	            	printSchoolInfo();
+					break;
+				case 10:
+					School.printCourses();
+					break;
+				case 11:
+					School.printStudents();
+					break;
+				case 12:
+					School.printTeachers();
+					break;
+			}
+		}while(option!=0);
+	}
+	
+	//second menu for teachers
+	public static void teacherOptions(Scanner cin) {
+		int option = 0;
+		do {
+			System.out.println("\nEnter your command");
+			System.out.println("0. Go back to categories");
+			System.out.println("1. Print information about a teacher");
+			System.out.println("2. Get list of students taught by a teacher");
+			System.out.println("3. Mark attendance of students");
+			System.out.println("4. Print attendance list of students");
+			System.out.println("5. Pay salary to a teacher");
+			option = cin.nextInt();
+			//discard \n
+			cin.nextLine();
+			//switch statement
+			switch(option) {
+				case 0:
+					break;
+				case 1:
+					printTeacherInfo(cin);
+					break;
+				case 2:
+					printStudentsOfTeacher(cin);
+					break;
+				case 3:
+					markAttendance(cin);
+					break;
+				case 4:
+					//print attendance
+					break;
+				case 5:
+					payTeacherSalary(cin);
+					break;
+			}
+		}while(option!=0);
+	}
+	
+	//second menu for students
+	public static void studentOptions(Scanner cin) {
+		int option = 0;
+		do {
+			System.out.println("\nEnter your command");
+			System.out.println("0. Go back to categories");
+			System.out.println("1. Print information about a student");
+			System.out.println("2. View attendance of a subject");
+			System.out.println("3. View list of teachers and courses");
+			System.out.println("4. Pay fee for a student");
+			option = cin.nextInt();
+			//discard \n
+			cin.nextLine();
+			//switch statement
+			switch(option) {
+				case 0:
+					break;
+				case 1:
+					printStudentInfo(cin);
+					break;
+				case 2:
+					printStudentAttendance(cin);
+					break;
+				case 3:
+					printStudentCourses(cin);
+					break;
+				case 4:
+					payStudentFee(cin);
+					break;
+			}
+		}while(option!=0);
+	}
+	
     public static void main(String[] args) {
+    	//printing the welcome message
+    	System.out.println(School.getName());
+    	System.out.println(School.getTagline());
+    	System.out.println("\nWelcome to our school management system!");
+    	System.out.println("\n*******************************************\n");
         Scanner cin = new Scanner(System.in);
-        School school = new School();
         //using do while loop because it has to run at least one time
+        //testing the new menus
         int option;
         do {
-            option = displayOption();
-            switch (option){
-                case 1:
-                	addStudent();
-                	break;
-                case 2:
-                	addCourse();
-                	break;
-                case 3:
-                	addTeacher();
-                	break;
-                case 4:
-                	School.printStudents();
-                	break;
-                case 5:
-                	School.printCourses();
-                	break;
-                case 6:
-                	School.printTeachers();
-                	break;
-                case 7:
-                	enrollCourse(cin);
-                	break;
-                case 8:
-                	markAttendance(cin);
-                	break;
-                case 9:
-                	printStudentAttendance(cin);
-                	break;
-                case 10:
-                	assignTeacher(cin);
-                	break;
-                case 11:
-                	payStudentFee(cin);
-                	break;
-                case 12:
-                	payTeacherSalary(cin);
-                	break;
-                case 13:
-                	System.out.println(school.getInfo());
-                	break;
-            }
+        	option = displayCategories(cin);
+        	switch(option) {
+        		case 0:
+        			break;
+        		case 1:
+        			adminOptions(cin);
+        			break;
+        		case 2:
+        			teacherOptions(cin);
+        			break;
+        		case 3:
+        			studentOptions(cin);
+        			break;
+        	}
         }while(option != 0);
     }
 
@@ -165,8 +278,21 @@ public class Main {
     	}
     }
     
+    //printing attendance for a student
+    public static void printTeacherAttendance(Scanner cin) {
+    	System.out.print("Enter teacher name: ");
+    	String teacherName = cin.nextLine();
+    	Teacher teacher = School.searchForTeacher(teacherName);
+    	if(teacher!= null) {
+    		teacher.printAttendance();
+    	}
+    	else {
+    		System.out.println("Teacher does not exist");
+    	}
+    }
+    
     //assigning teacher
-  //enroll course
+    //enroll course
     public static void assignTeacher(Scanner cin) {
     	System.out.print("Enter student's name: ");
     	String studentName = cin.nextLine();
@@ -223,4 +349,114 @@ public class Main {
     	}
     }
     
+    //printing school's info
+    public static void printSchoolInfo() {
+    	School school = new School();
+    	System.out.println(school.getInfo());
+    }
+    
+    //printing teacher's info
+    public static void printTeacherInfo(Scanner cin) {
+    	System.out.print("Enter teacher's name: ");
+    	String teacherName = cin.nextLine();
+    	Teacher teacher = School.searchForTeacher(teacherName);
+    	if(teacher != null) {
+    		System.out.println(teacher.getInfo());
+    	}
+    	else {
+    		System.out.println("Teacher not found");
+    	}
+    }
+    
+    //printing studeent's info
+    public static void printStudentInfo(Scanner cin) {
+    	System.out.print("Enter student's name: ");
+    	String studentName = cin.nextLine();
+    	Student student = School.searchForStudent(studentName);
+    	if(student != null) {
+    		System.out.println(student.getInfo());
+    	}
+    	else {
+    		System.out.println("Student not found");
+    	}
+    }
+    
+    //delete student
+    public static void deleteStudent(Scanner cin) {
+    	System.out.print("Enter student's name: ");
+    	String studentName = cin.nextLine();
+    	Student student = School.searchForStudent(studentName);
+    	if(student != null) {
+    		School.removeStudent(student);
+    	}
+    	else {
+    		System.out.println("Student does not exist");
+    	}
+    }
+    
+    //delete teacher
+    public static void deleteTeacher(Scanner cin) {
+    	System.out.print("Enter teacher's name: ");
+    	String teacherName = cin.nextLine();
+    	Teacher teacher = School.searchForTeacher(teacherName);
+    	if(teacher != null) {
+    		School.removeTeacher(teacher);
+    	}
+    	else {
+    		System.out.println("Teacher does not exist");
+    	}
+    }
+
+    //delete course
+    public static void deleteCourse(Scanner cin) {
+    	System.out.print("Enter course name: ");
+    	String courseName = cin.nextLine();
+    	Course course = School.searchForCourse(courseName);
+    	if(course != null) {
+    		School.removeCourse(course);
+    	}
+    	else {
+    		System.out.println("Course does not exist");
+    	}
+    }
+    
+    //printing teacher's students
+    public static void printStudentsOfTeacher(Scanner cin) {
+    	System.out.print("Enter teacher's name: ");
+    	String teacherName = cin.nextLine();
+    	Teacher teacher = School.searchForTeacher(teacherName);
+    	if(teacher != null) {
+    		for(Student student : teacher.getStudents()) {
+    			System.out.println(student.getName());
+    		}
+    	}
+    	else {
+    		System.out.println("Teacher not found");
+    	}
+    }
+    
+    //printing student's courses and teachers
+    public static void printStudentCourses(Scanner cin) {
+    	System.out.print("Enter student's name: ");
+    	String studentName = cin.nextLine();
+    	Student student = School.searchForStudent(studentName);
+    	if(student != null) {
+    		for(int i = 0; i<student.getCoursesEnrolled(); i++) {
+    			System.out.println("Course: "+student.getCourses()[i].getName());
+    			if(student.getTeachersAssigned()>i) {
+    				String teacher = student.getTeachers()[i].getName();
+        			if(teacher != null) {
+            			System.out.println("Teacher: "+teacher+"\n");
+            		}
+        			else {
+        				System.out.println("No teacher assigned yet\n");
+        			}
+
+    			}
+    		}
+    	}
+    	else {
+    		System.out.println("Student not found");
+    	}
+    }
 }
