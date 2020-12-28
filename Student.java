@@ -1,9 +1,11 @@
 package schoolmangementsys;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Student extends Person implements Management{
+public class Student extends Person implements Management, Serializable{
+	private static final long serialVersionUID = 1L;
 	//>>For encapsulation we made (fields) private
 	//>>Encapsulation = abstraction + Data Hiding.
 	private Course []  courses = new Course[5];
@@ -15,7 +17,7 @@ public class Student extends Person implements Management{
 	private int paidFee;
 	private static int semesterFee;
 	private static int totalFee; //total fee student has paid up till now
-	private Scanner input = new Scanner(System.in);
+	private transient Scanner input = new Scanner(System.in);
 	
 	//Parameterized Constructor
 	Student(String name, int rollNumber){
@@ -48,13 +50,12 @@ public class Student extends Person implements Management{
 	 */
 	public void addCourse(Course course) {
 		if(course == null || courses.length ==0) {
-			//Can replace with GUI
 			System.out.println("Error: Course array is NULL");
-		}else {
+		} else {
 			if(coursesEnrolled < 5) {
 				this.courses[this.coursesEnrolled] = course;
 				this.coursesEnrolled++;
-			}else {
+			} else {
 				System.out.println("Error: A student only can take 5"
 						+ "courses.");
 			}
@@ -91,11 +92,6 @@ public class Student extends Person implements Management{
 		stdInfo+= "Paid fee: " + paidFee+"\n";
 		stdInfo+= "Due fee: " + dueFee()+"\n";
 		return stdInfo;
-	}
-
-	//if student wants to drop a course
-	public void removeCourse(Course course) {
-
 	}
 
 	//student will view attendance according to subject
@@ -141,9 +137,7 @@ public class Student extends Person implements Management{
 		System.out.println();
 	}
 
-
-
-	//Added at 15/12/2020 12:12 am after the attedence and person commit
+	//Added at 15/12/2020 12:12 am after the attendance and person commit
 	//Overriding concept abstract to non-abstract (Overriding)
 	@Override
 	public Object create(){
@@ -203,7 +197,6 @@ public class Student extends Person implements Management{
 	public void setTeachers(Teacher[] teachers) {
 		this.teachers = teachers;
 	}
-
 
 	public int getTeachersAssigned() {
 		return teachersAssigned;

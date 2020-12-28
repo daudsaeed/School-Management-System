@@ -1,6 +1,8 @@
 package schoolmangementsys;
 
-public interface Management {
-	//Also by default it is public abstract
+import java.io.Serializable;
+
+public interface Management extends Serializable{
+	// Also by default it is public abstract
 	public String getInfo();
 }
